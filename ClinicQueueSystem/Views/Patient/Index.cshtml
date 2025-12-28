@@ -1,0 +1,13 @@
+@model IEnumerable<ClinicQueueSystem.Models.Patient>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Live Queue</h2>
+    <div id="queueList" class="table-responsive">
+        @await Html.PartialAsync("_QueueList", Model)
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="~/js/queue.js"></script>
+}

@@ -1,0 +1,16 @@
+﻿@{
+    /* Global View Imports - Centralized namespace and tag helper imports
+     * Purpose: Makes common namespaces and tag helpers available to all views
+     * Features:
+     * - Eliminates need for repetitive @using statements in individual views
+     * - Provides access to ClinicQueueSystem models and controllers
+     * - Enables ASP.NET Core MVC Tag Helpers for form binding and routing
+     * - Includes HTTP context access for session management
+     * - Streamlines view development with consistent imports
+     */
+}
+
+@using ClinicQueueSystem
+@using ClinicQueueSystem.Models
+@using Microsoft.AspNetCore.Http
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

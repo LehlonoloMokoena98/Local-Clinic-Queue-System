@@ -1,0 +1,27 @@
+@model IEnumerable<ClinicQueueSystem.Models.Patient>
+
+<h2>Patients Served Today</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Queue Number</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Registration Time</th>
+            <th>Served Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.QueueNumber</td>
+                <td>@patient.Name</td>
+                <td>@patient.Age</td>
+                <td>@patient.RegistrationTime.ToString("g")</td>
+                <td>@DateTime.Now.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>

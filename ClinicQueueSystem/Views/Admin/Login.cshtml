@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Admin Login</h2>
+        <form asp-action="Login" method="post">
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input id="username" name="username" class="form-control" placeholder="Enter your username" required />
+            </div>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" class="form-control" placeholder="Enter your password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+        }
+        <p class="text-center mt-3">
+            Not registered yet? <a asp-action="Register" asp-controller="Admin">Register here</a>.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+@{
+    /* Admin Dashboard Page - Comprehensive clinic statistics and management interface
+     * Features:
+     * - Real-time patient statistics and analytics
+     * - Key performance indicators with color-coded cards
+     * - Success/error message display system
+     * - Quick action buttons for common admin tasks
+     * - Average wait time and peak hour analytics
+     * - Emergency case monitoring and prioritization
+     * Data is populated from AdminController.Dashboard() action via ViewBag
+     */
+    ViewBag.Title = "Admin Dashboard";
+}
+
+@* ====================================================================
+   ADMIN DASHBOARD - COMPREHENSIVE CLINIC STATISTICS
+   ====================================================================
+   This Razor page displays real-time analytics and key performance indicators
+   for the clinic queue system including patient counts, wait times, and trends
+   Data is passed from AdminController.Dashboard() action via ViewBag
+*@
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">📊 Admin Dashboard</h2>
+    
+    @* SUCCESS/ERROR MESSAGE DISPLAY - Shows feedback after operations *@
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @* ====================================================================
+       MAIN STATISTICS CARDS - KEY PERFORMANCE INDICATORS
+       ====================================================================
+       Four primary metrics in responsive Bootstrap card layout with color coding
+       Data sourced from AdminController Dashboard action calculations
+    *@
+    <div class="row">
+        @* TOTAL REGISTERED - Daily patient registration volume *@
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4 border-primary">
+                <div class="card-body text-center">
+                    <h5 class="card-title">👥 Total Registered</h5>
+                    <p class="card-text display-5 text-primary">@ViewBag.TotalRegistered</p>
+                    <small class="text-muted">Today</small>
+                </div>
+            </div>
+        </div>
+        @* PATIENTS SERVED - Completion rate and throughput indicator *@
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4 border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title">✅ Patients Served</h5>
+                    <p class="card-text display-5 text-success">@ViewBag.ServedToday</p>
+                    <small class="text-muted">Completed</small>
+                </div>
+            </div>
+        </div>
+        
+        @* WAITING IN QUEUE - Current workload and pending patients *@
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4 border-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title">⏳ Waiting in Queue</h5>
+                    <p class="card-text display-5 text-warning">@ViewBag.WaitingInQueue</p>
+                    <small class="text-muted">Pending</small>
+                </div>
+            </div>
+        </div>
+        
+        @* EMERGENCY CASES - High-priority patient count for urgent care *@
+        <div class="col-md-3">
+            <div class="card shadow-sm mb-4 border-danger">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🚨 Emergency Cases</h5>
+                    <p class="card-text display-5 text-danger">@ViewBag.EmergencyCount</p>
+                    <small class="text-muted">Priority</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ====================================================================
+       SECONDARY STATISTICS - WAIT TIME AND PEAK HOUR ANALYTICS  
+       ====================================================================
+       Additional metrics showing service efficiency and clinic workflow patterns
+    *@
+    <div class="row">
+        @* AVERAGE WAIT TIME - Service efficiency indicator *@
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🕒 Average Wait Time</h5>
+                    <p class="card-text display-6">@ViewBag.AvgWaitTime mins</p>
+                    <small class="text-muted">Time to service</small>
+                </div>
+            </div>
+        </div>
+        
+        @* PEAK HOUR - Busiest time identification for resource planning *@
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title">⏰ Peak Hour</h5>
+                    <p class="card-text display-6">@ViewBag.PeakHour:00</p>
+                    <small class="text-muted">Busiest time</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

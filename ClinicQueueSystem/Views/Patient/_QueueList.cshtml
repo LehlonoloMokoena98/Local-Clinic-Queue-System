@@ -1,0 +1,72 @@
+@model IEnumerable<ClinicQueueSystem.Models.Patient>
+
+@if (Model.Any())
+{
+    <div class="alert alert-info">
+        <strong>Queue Order:</strong> 🚨 Emergency patients first, then 👴 Senior patients (65+), then by queue number
+    </div>
+    
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Queue #</th>
+                <th>Patient Name</th>
+                <th>Age</th>
+                <th>Priority</th>
+                <th>Registration Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr class="@(p.IsEmergency ? "table-danger" : (p.Age >= 65 ? "table-warning" : ""))">
+                    <td><strong>@p.QueueNumber</strong></td>
+                    <td>@p.Name</td>
+                    <td>@p.Age</td>
+                    <td>
+                        @if (p.IsEmergency)
+                        {
+                            <span class="badge bg-danger">🚨 Emergency</span>
+                        }
+                        else if (p.Age >= 65)
+                        {
+                            <span class="badge bg-warning text-dark">👴 Senior</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Regular</span>
+                        }
+                    </td>
+                    <td>@p.RegistrationTime.ToString("hh:mm tt")</td>
+                    <td>
+                        @if (!p.IsServed)
+                        {
+                            <form asp-action="ServePatient" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@p.Id" />
+                                <button type="submit" class="btn btn-success btn-sm">✅ Serve</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">✅ Served</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <div class="mt-3">
+        <p><strong>Total in Queue:</strong> @Model.Count()</p>
+        <p><strong>Emergency Cases:</strong> @Model.Count(p => p.IsEmergency)</p>
+        <p><strong>Senior Patients:</strong> @Model.Count(p => p.Age >= 65)</p>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning text-center">
+        <h4>📋 No patients in queue</h4>
+        <p>All patients have been served or no registrations today.</p>
+    </div>
+}
