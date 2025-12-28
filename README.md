@@ -45,7 +45,7 @@ A real-time, web-based queue management system for public clinics in South Afric
 
 ![Registration](screenshots/registration.png)
 ![Live Queue](screenshots/live-queue.png)
-![Admin Dashboard](screenshots/dashboard.png)
+![Admin Dashboard](https://github.com/LehlonoloMokoena98/Local-Clinic-Queue-System/blob/main/Screenshots/admin_dashboard.png)
 
 </details>
 
